@@ -26,8 +26,7 @@ export class UploadController {
     )
     file: Express.Multer.File,
   ) {
-    const tags = await this.uploadService.parseImage(file.buffer);
-    console.log(tags);
-    return { method: 'post' };
+    const extractData = await this.uploadService.parseImage(file.buffer);
+    return extractData;
   }
 }

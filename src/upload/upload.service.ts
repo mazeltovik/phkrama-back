@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import ExifReader from 'exifreader';
+import getExif from './helpers/getExif';
 @Injectable()
 export class UploadService {
   async parseImage(buffer: Buffer) {
@@ -7,6 +8,7 @@ export class UploadService {
       async: true,
       expanded: true,
     });
-    return tags;
+    const extractData = getExif(tags.exif);
+    return extractData;
   }
 }
