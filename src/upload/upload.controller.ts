@@ -6,9 +6,8 @@ import {
   ParseFilePipeBuilder,
   HttpStatus,
   Res,
-  Next,
 } from '@nestjs/common';
-import { NextFunction, Response } from 'express';
+// import { Response } from 'express';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { UploadService } from './upload.service';
 
@@ -28,8 +27,8 @@ export class UploadController {
         }),
     )
     file: Express.Multer.File,
-    @Res() res: Response,
   ) {
-    await this.uploadService.childProcessService.forkChildFile();
+    const extractData = await this.uploadService.parseImage(file.buffer);
+    return extractData;
   }
 }
